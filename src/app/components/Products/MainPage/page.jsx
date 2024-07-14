@@ -89,21 +89,19 @@ const page = () => {
               </div>
               <Link
                 href="/components/Products/ViewProductDetail/200"
-                // onClick={() =>
-                //   window.location.replace("https://www.apple.com/in/")
-                // }
                 className="cursor-pointer rounded-xl p-3 py-2 text-base font-bold bg-white hover:bg-gray-300 duration-200 ease-in-out text-black"
               >
                 View Pricing
               </Link>
             </div>
-            <div className="text-xl mb-3 mt-7 font-bold">From ₹1,59,990.00*</div>
+            <div className="text-xl mb-3 mt-7 font-bold">
+              From ₹1,59,990.00*
+            </div>
             <div className="text-base font-semibold text-gray-400">
               Available now for purchase
             </div>
           </div>
           <img
-            // src="https://www.apple.com/v/iphone-15-pro/a/images/overview/welcome/hero__iztc7m63bfiy_small_2x.jpg"
             src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch_GEO_EMEA?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1693009283815"
             alt="Product Image"
             // className="object-contain cursor-pointer h-[30vh] w-fit rounded-xl"
@@ -185,7 +183,7 @@ const page = () => {
                           else setCart([...Cart, product]);
                           axios
                             .post("/api/Cart", {
-                              email: email.trim(),
+                              email: email?.trim(),
                               date: "",
                               id: product.id,
                               operation: "post",

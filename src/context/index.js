@@ -9,7 +9,12 @@ export default function GlobalState({ children }) {
   const [isAuthUser, setIsAuthUser] = useState(false);
   const [email, setEmail] = useState();
   const [Cart, setCart] = useState([]);
-  const [Coupons, setCoupons] = useState(["MERRYCHRISTMAS", "HAPPYNEWYEAR"]);
+  const [recentlyViewed, setRecentlyViewed] = useState([]);
+  const [Coupons, setCoupons] = useState([
+    "MERRYCHRISTMAS",
+    "HAPPYNEWYEAR",
+    "GANESHCHATURTHI",
+  ]);
   return (
     <GlobalContext.Provider
       value={{
@@ -23,6 +28,8 @@ export default function GlobalState({ children }) {
         setIsAuthUser,
         email,
         setEmail,
+        recentlyViewed,
+        setRecentlyViewed,
       }}
     >
       {children}

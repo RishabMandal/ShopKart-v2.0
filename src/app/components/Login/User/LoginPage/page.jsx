@@ -90,8 +90,8 @@ const page = () => {
   return (
     <div>
       <div>
-        <section class="bg-gray-100 body-font">
-          <div class="container mx-auto flex px-5 py-12 items-center justify-center flex-col">
+        <section className="bg-gray-100 body-font">
+          <div className="container mx-auto flex px-5 py-12 items-center justify-center flex-col">
             {/* <div>{process.env.MONGO_URL}</div> */}
             <div className="bg-white md:w-[30rem] w-full p-5 rounded-2xl border shadow-xl">
               <div className="text-3xl text-center font-bold py-5">Log In</div>

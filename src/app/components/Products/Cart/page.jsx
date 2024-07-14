@@ -12,10 +12,16 @@ const page = () => {
   // console.log(Cart);
   const [totalPriceDay, settotalPriceDay] = useState(0);
   useEffect(() => {
-    Cart?.forEach((product) => {
-      settotalPriceDay((prev) => prev + product?.price);
-    });
+    const total = Cart?.reduce(
+      (sum, product) => sum + (product?.price || 0),
+      0
+    );
+    settotalPriceDay(total);
   }, [Cart]);
+
+  // useEffect(() => {
+  //   console.log(totalPriceDay);
+  // }, [totalPriceDay]);
 
   function removeProduct(id) {
     const updatedItems = Cart.filter((item) => item.id !== id);
@@ -29,7 +35,7 @@ const page = () => {
             operation: "post",
             operation2: "delete",
           })
-          .then((response) => alert("Product successfully deleted"))
+          .then((response) => console.log("Product successfully deleted"))
           .catch((error) => alert(error));
       }
     } catch (error) {
@@ -40,9 +46,11 @@ const page = () => {
   // Coupon functionality
   const couponVal = useRef();
   const { Coupons, setCoupons } = useContext(GlobalContext);
+  const [couponApplied, SetcouponApplied] = useState(false);
   const couponCodeFunction = () => {
-    if (Coupons?.includes(couponVal.current.value)) {
+    if (Coupons?.includes(couponVal.current.value) && !couponApplied) {
       settotalPriceDay((50 * totalPriceDay) / 100);
+      SetcouponApplied(true);
     } else alert("Coupon Code Invalid");
   };
   // print yay! you saved 50% on your order!
@@ -77,7 +85,8 @@ const page = () => {
               {Cart && Cart.length > 0 ? (
                 Cart.map((product) => {
                   return (
-                    <div
+                    <Link
+                      href={`/components/Products/ViewProductDetail/${product?.id}`}
                       key={product?.id}
                       className="border flex flex-col justify-between rounded-xl shadow-xl p-5 cursor-pointer hover:scale-105 duration-200 bg-white lg:w-1/4 md:w-1/2 w-full"
                     >
@@ -99,7 +108,7 @@ const page = () => {
                           Remove
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })
               ) : (
@@ -117,7 +126,6 @@ const page = () => {
               )}
             </div>
           </div>
-          {/* {Cart && Cart.length > 0 && ( */}
           <div className="bg-white p-5 px-10 shadow-xl border rounded-2xl">
             <div className="text-xl font-bold py-5">Order Details</div>
             <div className="text-base py-1">
@@ -148,6 +156,7 @@ const page = () => {
               />
               <button
                 onClick={couponCodeFunction}
+                disabled={couponApplied}
                 className={`block ${
                   couponVal.current?.value?.length > 0
                     ? "bg-red-600"
@@ -157,12 +166,6 @@ const page = () => {
                 Apply
               </button>
             </div>
-            {/* <Link
-              href="/components/Products/MainPage"
-              className="block bg-red-600 hover:bg-red-700 duration-200 font-semibold text-white text-center rounded-lg p-3 mx-auto"
-            >
-              Proceed to Pay
-            </Link> */}
             <button
               onClick={() => {
                 if (totalPriceDay === 0) alert("Cart is empty");
@@ -175,8 +178,10 @@ const page = () => {
                 }
               }}
               className={`block ${
-                totalPriceDay > 0 ? "bg-red-600" : "bg-gray-400"
-              } hover:bg-red-700 duration-200 font-semibold text-white text-center rounded-lg p-3 my-5 mx-auto`}
+                totalPriceDay > 0
+                  ? "bg-red-600 hover:bg-red-700"
+                  : "bg-gray-400"
+              } duration-200 font-semibold text-white text-center rounded-lg p-3 my-5 mx-auto`}
             >
               Proceed to Pay
             </button>
@@ -190,7 +195,6 @@ const page = () => {
               </Link>
             </div>
           </div>
-          {/* // )} */}
         </div>
       </div>
     </div>

@@ -9,7 +9,8 @@ import "./carousel.css";
 import Link from "next/link";
 
 const page = ({ params }) => {
-  const { Cart, setCart, email } = useContext(GlobalContext);
+  const { Cart, setCart, email, recentlyViewed, setRecentlyViewed } =
+    useContext(GlobalContext);
   const [product, setProduct] = useState();
   const [productID, setProductID] = useState(params.productId);
   const [Categories, setCategories] = useState("men's clothing");
@@ -60,6 +61,12 @@ const page = ({ params }) => {
   }, [Categories]);
 
   const [toast, setToast] = useState(false);
+
+  // Recently viewed
+  useEffect(() => {
+    if (product && !recentlyViewed.includes(product))
+      setRecentlyViewed([...recentlyViewed, product]);
+  }, [product]);
 
   return (
     <div>
@@ -340,6 +347,84 @@ const page = ({ params }) => {
                   return (
                     <div
                       // href={`/components/Products/ViewProductDetail/${product.id}`}
+                      key={product.id}
+                      className={`border flex flex-col mx-aut rounded-xl hover:scale-105 duration-200 shadow-xl p-5 cursor-pointer bg-white lg:w-[31%] md:w-1/2 w-full`}
+                    >
+                      <Link
+                        href={`/components/Products/ViewProductDetail/${product.id}`}
+                        className="cursor-pointer h-full"
+                      >
+                        <div>
+                          <div className="text-xl font-bold">
+                            {product.title}
+                          </div>
+                          <div>{product.category}</div>
+                        </div>
+                        {/* <img
+                      src={product.image}
+                      alt=""
+                      className="max-h-[50vh] w-full h-full object-center object-contain pt-5"
+                    /> */}
+                        {/* <div className="flex items-center h-[25rem] justify-center pt-5"> */}
+                        <img
+                          src={product.image}
+                          alt=""
+                          className="max-h-[50vh] w-full object-center object-contain py-5"
+                        />
+                        {/* </div> */}
+                      </Link>
+                      <div className="flex flex-wrap items-center h-max justify-between gap-5 mt-5">
+                        <div className="flex flex-wrap">
+                          {product?.title
+                            ?.toLowerCase()
+                            ?.includes("lehenga") && (
+                            <div className="text-lg font-bold text-red-600 line-through mr-2">
+                              ₹{Math.ceil(product.price * 3.1)}.00
+                            </div>
+                          )}
+                          <div className="text-lg font-bold">
+                            ₹{product.price}.00
+                          </div>
+                        </div>
+                        <div
+                          onClick={() => {
+                            if (product) {
+                              if (Cart.length === 0) setCart([product]);
+                              else setCart([...Cart, product]);
+                              setToast(true);
+                            } else {
+                              alert("Error adding to cart");
+                            }
+                          }}
+                          className="cursor-pointer text-center bg-red-600 hover:bg-red-700 duration-200 text-white rounded-lg p-3 font-bold text-base"
+                        >
+                          Add to cart
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+            ) : (
+              <div>
+                <div>No product found</div>
+                <CircularProgress color="error" size={80} />
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="container mx-auto pb-20 p-5">
+          <div className="text-2xl font-bold py-5">Recently Viewed</div>
+          <div
+            className={`flex flex-wrap gap-5 ${
+              recentlyViewed?.length <= 3 ? "justify-start" : "justify-between"
+            }`}
+          >
+            {recentlyViewed && recentlyViewed.length > 0 ? (
+              recentlyViewed
+                // .filter((product) => product.id != params.productId)
+                .map((product) => {
+                  return (
+                    <div
                       key={product.id}
                       className={`border flex flex-col mx-aut rounded-xl hover:scale-105 duration-200 shadow-xl p-5 cursor-pointer bg-white lg:w-[31%] md:w-1/2 w-full`}
                     >
