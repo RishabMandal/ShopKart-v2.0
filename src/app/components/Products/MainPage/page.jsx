@@ -66,6 +66,7 @@ const page = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
   return (
@@ -73,9 +74,9 @@ const page = () => {
       <div className="bg-[#121212] text-white p-5">
         <div className="lg:flex flex-row my-6 md:my-10 justify-evenly items-center gap-5">
           <div>
-            <div className="text-4xl font-bold">iPhone 15 Pro Max</div>
+            <div className="text-4xl font-bold">iPhone 16 Pro Max</div>
             <div className="text-lg text-gray-200 my-5">
-              Supercharged by A17 Pro, taking its power and efficiency further
+              Supercharged by A18 Pro, taking its power and efficiency further
               than ever. Unleash the beast.
             </div>
             <div className="flex flex-row gap-5">
@@ -88,21 +89,22 @@ const page = () => {
                 Read More
               </div>
               <Link
-                href="/components/Products/ViewProductDetail/200"
+                href="/components/Products/ViewProductDetail/202"
                 className="cursor-pointer rounded-xl p-3 py-2 text-base font-bold bg-white hover:bg-gray-300 duration-200 ease-in-out text-black"
               >
                 View Pricing
               </Link>
             </div>
             <div className="text-xl mb-3 mt-7 font-bold">
-              From ₹1,59,990.00*
+              From ₹1,44,990.00
             </div>
             <div className="text-base font-semibold text-gray-400">
               Available now for purchase
             </div>
           </div>
           <img
-            src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch_GEO_EMEA?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1693009283815"
+            // src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch_GEO_EMEA?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1693009283815"
+            src="https://www.apple.com/in/iphone-16-pro/images/overview/product-viewer/iphone-pro/all_colors__fdpduog7urm2_xlarge_2x.jpg"
             alt="Product Image"
             // className="object-contain cursor-pointer h-[30vh] w-fit rounded-xl"
             className="object-cover object-center cursor-pointer h-[35vh] w-[45vh] mx-auto lg:mx-0 rounded-xl"

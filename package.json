@@ -40,6 +40,7 @@
     "postcss": "8.4.39",
     "react": "^19.0.0-rc-df5f2736-20240712",
     "react-chatbot-kit": "^2.2.2",
+    "react-chatbotify": "^1.7.0",
     "react-dom": "^19.0.0-rc-df5f2736-20240712",
     "react-responsive-carousel": "^3.2.23",
     "react-spinners": "^0.14.1",
